@@ -1,0 +1,10 @@
+
+version: '3.1'
+
+services:
+  app:
+    build: .
+    environment:
+      PORT: 14321
+    ports:
+      - 8080:14321
