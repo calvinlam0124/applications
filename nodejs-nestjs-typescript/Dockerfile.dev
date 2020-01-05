@@ -1,0 +1,14 @@
+# no build stage that finished in localhost 
+# FROM node:13.3.0-stretch as npm-installer
+# WORKDIR /opt/app
+# COPY code ./.
+# RUN npm install
+# RUN npm run build
+
+FROM node:13.5.0-stretch
+ENV WORKING_DIR /var/www/html
+WORKDIR ${WORKING_DIR}
+RUN apt-get update && apt-get install -y git ssh
+# COPY --from=npm-installer /opt/app/node_modules ${WORKING_DIR}/node_modules
+# COPY --from=npm-installer /opt/app/dist ${WORKING_DIR}/dist
+# CMD ["npm", "run", "start:prod"] # command will replaced by docker-compose.yml

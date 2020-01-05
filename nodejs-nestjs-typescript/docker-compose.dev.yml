@@ -1,0 +1,17 @@
+
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=local
+      - PORT=14321
+    ports:
+      - 8080:14321
+    volumes:
+      - ./code:/var/www/html
+      - ~/.ssh:/root/.ssh
+    command: ["npm", "run", "start:dev"]
