@@ -1,9 +1,22 @@
-### Commands for production
+## Production environment
+
+### docker run
 ```sh
 # build image
 docker build -t DOCKER_IMAGE_NAME .
 docker run --rm -p 8080:14321 DOCKER_IMAGE_NAME
+open http://localhost:8080
+```
 
+### docker-compose
+```sh
+# docker-compose
+docker-compose build && docker-compose up
+open http://localhost:8080
+```
+
+### Debug
+```sh
 # debug command
 docker run --rm -it \
     -p 8080:14321 \
@@ -11,23 +24,22 @@ docker run --rm -it \
     -v $(pwd)/dist:/var/www/html/dist \
     -w /var/www/html/dist node:13.3.0-stretch \
     sh -c "node main.js"
-
-# docker-compose
-docker-compose build && docker-compose up
-open http://localhost:8080
 ```
 
-### Commands for development
+# Development environment
+### docker run
 ```sh
 # build image
 docker build -f Dockerfile.dev -t DOCKER_IMAGE_TEST_NAME .
 docker run --rm -p 8080:14321 DOCKER_IMAGE_TEST_NAME
+open http://localhost:8080
+```
 
-# docker-composes
+### docker-composes
+```sh
 docker-compose -f docker-compose.dev.yml build
 docker-compose -f docker-compose.dev.yml up
 open http://localhost:8080
-
 ```
 
 ### Code
