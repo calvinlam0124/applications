@@ -1,0 +1,5 @@
+.idea/
+code/coverage/
+code/vendor/
+code/logs/*
+!code/logs/README.md
