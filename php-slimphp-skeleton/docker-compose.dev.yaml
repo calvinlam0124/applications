@@ -1,0 +1,14 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8089:80"
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev.php-fpm
+    volumes:
+      - ./code:/code
