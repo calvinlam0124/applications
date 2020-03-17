@@ -1,0 +1,72 @@
+version: '3'
+
+
+# wait-for: https://github.com/capripot/wait-for
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "20080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - redis
+  db:
+    image: mariadb:10.3.15-bionic
+    ports:
+      - "23306:3306"
+    volumes:
+      - ./mysql.cnf:/etc/mysql/conf.d/calvin.my.cnf
+    environment:
+      - MYSQL_DATABASE=db_name
+      - MYSQL_ROOT_PASSWORD=123456!
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      
+  adminer:
+    image: adminer:4.7.6-standalone
+    restart: always
+    ports:
+      - 28081:8080
+    depends_on:
+      - db
+
+  redis:
+    image: redis:5.0.5-stretch
+    ports:
+      - "26379:6379"
+
+  crontjob:
+    build:
+      context: .
+      dockerfile: Dockerfile.cronjob
+    volumes:
+      - .:/var/www/html
+
+  node:
+    image: node:13.3.0-stretch
+    volumes:
+      - .:/var/www/html
+
+  mongo:
+    image: mongo:4.2.3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 18081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    depends_on:
+      - mongo
