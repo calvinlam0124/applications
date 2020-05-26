@@ -8,7 +8,7 @@ FROM php:7.4.0-apache
 COPY . /var/www/html
 COPY --from=php-composer /var/www/html/vendor /var/www/html/vendor
 COPY apache2.000-default.conf /etc/apache2/sites-enabled/000-default.conf
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install -j$(nproc) pdo_mysql
 RUN ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN a2enmod rewrite
