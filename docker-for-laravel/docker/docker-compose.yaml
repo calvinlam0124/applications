@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile.php-apache
     volumes:
-      - ${APP_ROOT}:/var/www/html:ro
-      - ~/.ssh:/root/.ssh
+      - ${APP_ROOT}:/var/www/html
+      - ~/.ssh:/root/.ssh:ro
     ports:
       - 80:80
     depends_on:
