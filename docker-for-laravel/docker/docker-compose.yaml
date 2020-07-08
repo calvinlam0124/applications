@@ -6,17 +6,20 @@ services:
       context: .
       dockerfile: Dockerfile.php-apache
     volumes:
-      - ../php-src:/var/www/html:ro
+      - ${APP_ROOT}:/var/www/html:ro
       - ~/.ssh:/root/.ssh
     ports:
       - 80:80
+    depends_on:
+      - db
+      - cache
 
-  crontjob:
+  cronjob:
     build:
       context: .
-      dockerfile: Dockerfile.confjob
+      dockerfile: Dockerfile.cronjob
     volumes:
-      - ../php-src:/var/www/html:ro
+      - ${APP_ROOT}:/var/www/html:ro
 
   db:
     image: mysql:8.0.19
@@ -29,7 +32,7 @@ services:
     volumes:
       - ./mysql.my.cnf:/etc/mysql/conf.d/custom.my.cnf
 
-  redis:
+  cache:
     image: redis:5.0.5-stretch
     ports:
       - "6379:6379"

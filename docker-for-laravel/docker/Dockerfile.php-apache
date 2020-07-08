@@ -10,8 +10,7 @@ RUN apt-get install -y ssh git
 
 # Apache2
 COPY apache2.000-default.conf /etc/apache2/sites-enabled/000-default.conf
-RUN docker-php-ext-install pdo_mysql
-
+RUN a2enmod rewrite
 
 # PHP
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -34,5 +33,6 @@ RUN pecl install redis && docker-php-ext-enable redis
 
 
 # Laravel Files
+RUN mkdir -p /var/www/html/public
 #COPY . /var/www/html
 #RUN chmod -R 777 /var/www/html/storage

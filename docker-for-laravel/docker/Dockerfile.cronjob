@@ -12,7 +12,7 @@ RUN docker-php-ext-install pdo_mysql
 RUN ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN a2enmod rewrite
-RUN chmod -R 777 /var/www/html/storage
+#RUN chmod -R 777 /var/www/html/storage
 
 RUN apt-get update
 RUN apt-get install cron -y
