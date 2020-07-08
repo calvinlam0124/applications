@@ -1,5 +1,38 @@
 FROM php:7.4.0-apache
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+# OS
+RUN ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime # or /usr/share/zoneinfo/UTC
 
+RUN apt-get update
+RUN apt-get install -y ssh git
+
+
+
+# Apache2
+COPY apache2.000-default.conf /etc/apache2/sites-enabled/000-default.conf
+RUN docker-php-ext-install pdo_mysql
+
+
+# PHP
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+RUN docker-php-ext-install pdo_mysql
+
+
+# Zip and unzip for composer install
+RUN apt-get install -y zip unzip libzip-dev
+RUN docker-php-ext-install zip
+
+# GD
+RUN apt-get install -y zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
+RUN docker-php-ext-install gd
+
+
+# Redis
+# https://stackoverflow.com/questions/31369867/how-to-install-php-redis-extension-using-the-official-php-docker-image-approach
+RUN pecl install redis && docker-php-ext-enable redis
+
+
+# Laravel Files
 #COPY . /var/www/html
+#RUN chmod -R 777 /var/www/html/storage
