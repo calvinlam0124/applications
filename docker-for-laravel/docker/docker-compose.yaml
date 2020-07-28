@@ -31,6 +31,7 @@ services:
       - MYSQL_ROOT_PASSWORD=123456!
     volumes:
       - ./mysql.my.cnf:/etc/mysql/conf.d/custom.my.cnf
+ #     - ./db_data:/var/lib/mysql
 
   cache:
     image: redis:5.0.5-stretch
