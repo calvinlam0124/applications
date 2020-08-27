@@ -16,8 +16,9 @@ class RedisConnectionTest extends TestCase
      */
     public function testRedisConnectionPing()
     {
-        $assert_response = "PONG";
-        $response = Redis::connection()->ping()->__toString();
-        $this->assertEquals($response, $assert_response);
+        $input = 'baz';
+        Cache::put('bar', $input, 600); // 10 Minutes
+        $output = Cache::get('bar', 'default');
+        $this->assertEquals($input, $output);
     }
 }
