@@ -8,7 +8,9 @@ use Tests\TestCase;
 
 class RedisConnectionTest extends TestCase
 {
-    use RefreshDatabase;
+    // Disable refresh database for keep data safe
+    //use RefreshDatabase;
+
     /**
      * A basic unit test example.
      *
