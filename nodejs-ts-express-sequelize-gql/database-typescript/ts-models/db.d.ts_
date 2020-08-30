@@ -1,0 +1,22 @@
+// tslint:disable
+import * as Sequelize from 'sequelize';
+
+
+// table: SequelizeMeta
+export interface SequelizeMetaAttribute {
+  name:string;
+}
+export interface SequelizeMetaInstance extends Sequelize.Instance<SequelizeMetaAttribute>, SequelizeMetaAttribute { }
+export interface SequelizeMetaModel extends Sequelize.Model<SequelizeMetaInstance, SequelizeMetaAttribute> { }
+
+// table: Users
+export interface UsersAttribute {
+  id?:number;
+  firstName?:string;
+  lastName?:string;
+  email?:string;
+  createdAt:Date;
+  updatedAt:Date;
+}
+export interface UsersInstance extends Sequelize.Instance<UsersAttribute>, UsersAttribute { }
+export interface UsersModel extends Sequelize.Model<UsersInstance, UsersAttribute> { }

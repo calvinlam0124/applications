@@ -1,0 +1,19 @@
+FROM node:13.6.0-stretch as npm-installer
+COPY . /opt/app/.
+WORKDIR /opt/app
+RUN npm install
+
+FROM node:13.6.0-stretch
+#RUN apt-get update && apt-get install -y sqlite3 libsqlite3-dev sqlite3*
+ENV NODE_ENV development
+ENV WORKING_DIR /opt/app
+WORKDIR ${WORKING_DIR}
+COPY --from=npm-installer /opt/app/node_modules ${WORKING_DIR}/node_modules/
+COPY ./config ${WORKING_DIR}/config
+COPY ./migrations ${WORKING_DIR}/migrations
+COPY ./models ${WORKING_DIR}/models
+COPY ./seeders ${WORKING_DIR}/seeders
+COPY ./package.json ${WORKING_DIR}/package.json
+COPY ./package-lock.json ${WORKING_DIR}/package-lock.json
+RUN npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all
+CMD ["npx", "sequelize-tinker"]

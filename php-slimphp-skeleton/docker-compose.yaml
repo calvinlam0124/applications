@@ -10,5 +10,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.php-fpm
-    ports:
-      - "9000:9000"
+#    ports:
+#      - "9000:9000"

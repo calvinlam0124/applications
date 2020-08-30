@@ -1,0 +1,17 @@
+// tslint:disable
+import * as path from 'path';
+import * as sequelize from 'sequelize';
+import * as def from './db';
+
+export interface ITables {
+  SequelizeMeta:def.SequelizeMetaModel;
+  Users:def.UsersModel;
+}
+
+export const getModels = function(seq:sequelize.Sequelize):ITables {
+  const tables:ITables = {
+    SequelizeMeta: seq.import(path.join(__dirname, './SequelizeMeta')),
+    Users: seq.import(path.join(__dirname, './Users')),
+  };
+  return tables;
+};
