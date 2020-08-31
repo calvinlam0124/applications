@@ -32,6 +32,18 @@ $repositories($containerBuilder);
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
 
+
+// @TODO: start
+//$container->set('R', function () {
+//    $settings = [...];
+//    return new MyService($settings);
+//});
+\RedBeanPHP\R::setup();
+// @TODO: end
+
+
+
+
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();
