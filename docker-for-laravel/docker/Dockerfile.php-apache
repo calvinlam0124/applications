@@ -27,6 +27,14 @@ RUN apt-get install -y zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
 RUN docker-php-ext-install gd
 
 
+# GRCP
+RUN apt-get update
+RUN apt-get -y --no-install-recommends install g++ zlib1g-dev
+RUN pecl install grpc
+RUN docker-php-ext-enable grpc
+# php -i | grep grpc
+
+
 # Redis
 # https://stackoverflow.com/questions/31369867/how-to-install-php-redis-extension-using-the-official-php-docker-image-approach
 RUN pecl install redis && docker-php-ext-enable redis
