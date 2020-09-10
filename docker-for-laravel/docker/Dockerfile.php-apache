@@ -34,6 +34,11 @@ RUN pecl install grpc
 RUN docker-php-ext-enable grpc
 # php -i | grep grpc
 
+# PostgreSQL
+RUN apt-get update
+RUN apt-get install -y libpq-dev
+RUN docker-php-ext-install pgsql pdo_pgsql
+
 
 # Redis
 # https://stackoverflow.com/questions/31369867/how-to-install-php-redis-extension-using-the-official-php-docker-image-approach
