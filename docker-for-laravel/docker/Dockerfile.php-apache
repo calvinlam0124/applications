@@ -12,6 +12,19 @@ RUN apt-get install -y ssh git
 COPY apache2.000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
 
+# Apache2 OWASP Mod-Security
+#
+# WIP
+#
+#RUN mkdir -p /etc/apache2/modsecurity.d/owasp-modsecurity-crs
+#RUN git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git /etc/apache2/modsecurity.d/owasp-modsecurity-crs
+#RUN apt-get update
+#RUN apt-get install -y libapache2-mod-security2
+#RUN cp -a /etc/apache2/modsecurity.d/owasp-modsecurity-crs/crs-setup.conf.example /etc/apache2/modsecurity.d/owasp-modsecurity-crs/crs-setup.conf
+#RUN mv /etc/apache2/modsecurity.d/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /etc/apache2/modsecurity.d/owasp-modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
+#RUN mv /etc/apache2/modsecurity.d/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example /etc/apache2/modsecurity.d/owasp-modsecurity-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf
+
+
 # PHP
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
