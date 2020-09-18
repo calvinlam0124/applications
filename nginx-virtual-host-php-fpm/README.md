@@ -6,6 +6,11 @@ set below domain in your hosts file `/etc/hosts`
 127.0.0.1       server-c.tld
 ```
 
+### Run
+```sh
+docker-compose up
+```
+
 ### Test
 ```sh
 # curl --head --compress http://server-a.tld:8080/
