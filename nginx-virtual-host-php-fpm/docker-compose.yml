@@ -37,3 +37,4 @@ services:
         image: php:8.0-rc-fpm-buster
         volumes:
             - ./info.php:/code/info.php
+            - ./php-fpm.ping.conf:/usr/local/etc/php-fpm.d/php-fpm.ping.conf
