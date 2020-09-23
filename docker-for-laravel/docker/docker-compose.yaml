@@ -14,6 +14,8 @@ services:
     depends_on:
       - db
       - cache
+#    restart: always
+
 
   cronjob:
     build:
@@ -33,6 +35,15 @@ services:
     volumes:
       - ./mysql.my.cnf:/etc/mysql/conf.d/custom.my.cnf
  #     - ./db_data:/var/lib/mysql
+
+  # pg:
+  #   image: postgres:13-rc1
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_PASSWORD=123456!
+  #     - POSTGRES_USER=db_user
+  #     - POSTGRES_DB=db_name
 
   cache:
     image: redis:5.0.5-stretch
