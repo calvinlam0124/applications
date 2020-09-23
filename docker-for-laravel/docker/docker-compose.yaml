@@ -34,16 +34,18 @@ services:
       - MYSQL_ROOT_PASSWORD=123456!
     volumes:
       - ./mysql.my.cnf:/etc/mysql/conf.d/custom.my.cnf
- #     - ./db_data:/var/lib/mysql
+ #     - ./pg_db_data:/var/lib/mysql
 
-  # pg:
-  #   image: postgres:13-rc1
-  #   ports:
-  #     - 5432:5432
-  #   environment:
-  #     - POSTGRES_PASSWORD=123456!
-  #     - POSTGRES_USER=db_user
-  #     - POSTGRES_DB=db_name
+  pg:
+    image: postgres:13-rc1
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=123456!
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=db_name
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
 
   cache:
     image: redis:5.0.5-stretch
