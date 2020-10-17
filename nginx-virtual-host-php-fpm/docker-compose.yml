@@ -38,3 +38,9 @@ services:
         volumes:
             - ./info.php:/code/info.php
             - ./php-fpm.ping.conf:/usr/local/etc/php-fpm.d/php-fpm.ping.conf
+        # healthcheck:
+        #     test: ["CMD", "curl", "-f", "http://localhost"]
+        #     interval: 1m30s
+        #     timeout: 10s
+        #     retries: 3
+        #     start_period: 40s
