@@ -8,11 +8,18 @@ services:
     volumes:
       - ${APP_ROOT}:/var/www/html
       - ~/.ssh:/root/.ssh:ro
-    ports:
-      - 80:80
+#    ports:
+#      - 80:80
     depends_on:
       - db
       - cache
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.myproject.rule=Host(`localhost`)"
+    - "traefik.http.routers.myproject.entrypoints=web"
+    #- "traefik.docker.network=web"
+    - "traefik.http.services.myproject.loadbalancer.server.port=80"
+
 
   cronjob:
     build:
@@ -38,3 +45,18 @@ services:
     ports:
       - "6379:6379"
 
+  # Treafik - reverse proxy
+  traefik:
+    image: traefik:v2.3
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    restart: always
+    ports:
+      - "80:80"
+      - "8080:8080" # The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
