@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+    web:
+        image: nginx:1.19.2
+        volumes:
+            - ./nginx-default.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./nginx-compression.conf:/etc/nginx/conf.d/compression.conf:ro
+        ports:
+            - "8080:80"
+        depends_on:
+            - server-a
+            - server-b
+
+    server-a:
+        image: nginx:1.19.2
+        volumes:
+            - ./a.html:/usr/share/nginx/html/index.html
+
+    server-b:
+        image: nginx:1.19.2
+        volumes:
+            - ./b.html:/usr/share/nginx/html/index.html
