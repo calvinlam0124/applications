@@ -31,6 +31,11 @@ RUN echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.in
 RUN docker-php-ext-install pdo_mysql
 
 
+# apfd - Always Populate Form Data
+# https://pecl.php.net/package/apfd
+RUN pecl install apfd
+RUN docker-php-ext-enable apfd
+
 # Zip and unzip for composer install
 RUN apt-get install -y zip unzip libzip-dev
 RUN docker-php-ext-install zip
