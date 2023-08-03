@@ -12,7 +12,6 @@ export default {
 	async fetch(request, env, ctx) {
 		//
 		if (request.method === 'POST') {
-			console.dir('---1---',request.method)
 			return httpPostHandler(request);
 		} else {
 			return httpGetHandler();
