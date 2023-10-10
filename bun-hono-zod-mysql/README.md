@@ -23,3 +23,19 @@ curl localhost:3000/env
 curl -X POST localhost:3000/todo -F 'title=myTitleValue'
 ```
 
+
+### wip
+```shell
+https://github.com/sequelize/cli
+sequelize-cli init
+sequelize-cli db:migrate:status
+npx sequelize-cli db:migrate:status --url 'mysql://root:password@mysql_host.com/database_name'
+npm run migrate:up -- --url <url
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+
+npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js
+npx sequelize-cli db:migrate:undo
+
+npx sequelize-cli seed:generate --name demo-user
+```
