@@ -1,0 +1,8 @@
+# templates/ssh_config.j2
+
+{{ ansible_managed | comment }}
+
+Host gitlab.com
+IdentityFile /root/.ssh/id_rsa.gitlab
+IdentitiesOnly yes
+StrictHostKeyChecking no

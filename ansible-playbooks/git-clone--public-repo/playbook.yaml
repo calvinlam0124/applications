@@ -1,0 +1,9 @@
+---
+ - hosts: all
+   tasks:
+   - name: Clone a github repository
+     git:
+       repo: https://github.com/sqlite/sqlite.git
+       dest: /root/test/sqlite
+       clone: yes
+       update: yes

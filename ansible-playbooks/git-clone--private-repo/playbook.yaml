@@ -1,0 +1,55 @@
+---
+ - hosts: all
+   tasks:
+     - name: add gitlab ssh key
+       copy: >
+         src=secret_assets/id_rsa.gitlab
+         dest=/root/.ssh/id_rsa.gitlab
+         owner=root
+         group=root
+         mode=0600
+
+     - name: copy ssh config file
+       template: >
+         src=templates/ssh_config.j2
+         dest=/root/.ssh/config
+         owner=root
+         group=root
+         mode=0644
+
+     - name: Clone a gitlab repository
+       git:
+         repo: git@gitlab.com:xxxxx/erp.git
+         version: develop
+         dest: /opt/custom-erp/
+         key_file: /root/.ssh/id_rsa.gitlab
+         clone: yes
+         update: yes
+
+     - name: Creates directory
+       ansible.builtin.file:
+         path: /root/.docker
+         state: directory
+         owner: root
+         group: root
+         mode: 0700
+         recurse: yes
+
+     - name: copy docker login credential
+       copy: >
+         src=secret_assets/docker_config.json
+         dest=/root/.docker/config.json
+         owner=root
+         group=root
+         mode=0600
+
+# @highlight: this module require python2 not 3
+#
+#     - name: Docker login private registry
+#       vars:
+#         ansible_python_interpreter: /usr/bin/python
+#       community.docker.docker_login:
+#         registry_url: https://registry.gitlab.com/xxxx/erp
+#         username: gitlab+deploy-token-2244xxx
+#         password: xxxxxxxxxxx
+#         reauthorize: yes
