@@ -8,6 +8,7 @@ https://hono.dev/api/hono#fetch
 ```shell
 docker run --rm -it --name test-bun -v $(pwd)/src:/home/bun/app -p 3000:3000 oven/bun:1.0.3-debian bash
 docker run --rm -it --name test-node -w /app -v $(pwd)/src:/app -p 3001:3000 node:20.8.0-bookworm bash
+docker run --rm -it --name test-node -w /app --add-host "host.docker.internal:host-gateway"  -v $(pwd)/src:/app -p 3002:3000 node:20.8.0-bookworm bash
 
 APP_ENV=development node index.js
 PORT=12345 bun src/test.js
@@ -30,6 +31,7 @@ https://github.com/sequelize/cli
 sequelize-cli init
 sequelize-cli db:migrate:status
 npx sequelize-cli db:migrate:status --url 'mysql://root:password@mysql_host.com/database_name'
+npx sequelize-cli db:migrate:status --url 'mysql://root:123456!@host.docker.internal/db_name'
 npm run migrate:up -- --url <url
 npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 

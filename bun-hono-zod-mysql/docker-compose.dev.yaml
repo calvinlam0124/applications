@@ -1,4 +1,4 @@
-version: '3'
+name: mvp
 
 services:
   app:
@@ -36,3 +36,25 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+
+  # PROFILE: migration
+  # docker compose --profile migration -f docker-compose.dev.yaml up
+  db-migration:
+    profiles:
+      - migration
+    image: node:20.8.0-bookworm
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    command:
+      - "npx"
+      - "sequelize-cli"
+#      - "db:migrate:status"
+      - "db:migrate"
+      - "--url"
+      - "'mysql://root:123456!@host.docker.internal/db_name'"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      db:
+        condition: service_healthy

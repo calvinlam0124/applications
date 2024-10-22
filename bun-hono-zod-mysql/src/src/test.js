@@ -25,7 +25,7 @@ app.get('/error', (c) => {c.text('nothing'); throw Error('default-error'); })
 // @ts-ignore // process
 app.get('/env', (c) => c.text(JSON.stringify(process.env, null, 4)))
 
-app.get('/db', async ()=>{
+app.get('/db', async (c)=>{
     const DB_CONNECTION = process.env.DB_CONNECTION || 'mysql';
     const DB_HOST = process.env.DB_HOST || 'localhost';
     const DB_DATABASE = process.env.DB_DATABASE || 'app';
@@ -44,6 +44,8 @@ app.get('/db', async ()=>{
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
+
+    return c.text('ok')
 })
 
 
