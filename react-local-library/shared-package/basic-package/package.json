@@ -1,0 +1,8 @@
+{
+  "name": "my-shared-package",
+  "version": "1.0.0",
+  "main": "src/index.jsx",
+  "module": "src/index.jsx",
+  "types": "src/index.d.ts",
+  "private": true
+}
