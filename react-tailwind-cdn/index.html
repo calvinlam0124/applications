@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Local Example</title>
+  <!-- 引入本地的 Tailwind CSS -->
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- 引入本地的 React 和 ReactDOM -->
+  <!-- 引入本地的 Babel 用於 JSX 轉譯 -->
+
+  <script type="text/babel">
+    // React 計數器組件
+    function Counter() {
+      const [count, setCount] = React.useState(0);
+
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+          <h1 className="text-4xl font-bold text-blue-600 mb-4">計數器</h1>
+          <p className="text-2xl mb-4">當前計數: {count}</p>
+          <div className="space-x-4">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => setCount(count + 1)}
+            >
+              增加
+            </button>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              onClick={() => setCount(count - 1)}
+            >
+              減少
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // 渲染組件到 DOM
+    ReactDOM.render(<Counter />, document.getElementById('root'));
+  </script>
+</body>
+</html>
